@@ -229,9 +229,16 @@ async function bet(index: string, amount: string) {
     .connect(accounts[Number(index)])
     .approve(contractAddress, ethers.MaxUint256);
   await allowTx.wait();
-  const tx = await contract.connect(accounts[Number(index)]).betMany(amount);
+  let tx;
+  if (parseInt(amount) > 1) {
+    tx = await contract.connect(accounts[Number(index)]).betMany(amount);
+  }
+  else {
+    tx = await contract.connect(accounts[Number(index)]).bet();
+  } 
   const receipt = await tx.wait();
   console.log(`Bets placed (${receipt?.hash})\n`);
+  console.log(`Gas used: (${receipt?.gasUsed})\n`);
 }
 
 async function closeLottery() {
