@@ -93,17 +93,23 @@ contract Lottery is Ownable {
         paymentToken.transferFrom(msg.sender, address(this), betPrice + betFee);
     }
 
-    /// @notice Calls the bet function `times` times
+    /// @notice Place multiple bets in one transaction
     function betMany(uint256 times) external {
         require(times > 0);
-        while (times > 0) {
-            bet();
-            times--;
+        uint256 betFeeTotal = betFee * times;
+        uint256 betPriceTotal = betPrice * times;
+        prizePool += betPriceTotal;
+        ownerPool += betFeeTotal;
+        for (uint i = 0; i < times;) {
+            _slots.push(msg.sender);
+            unchecked {
+                i++;
+            }
         }
-        // TODO (Bonus): optimize this
+        paymentToken.transferFrom(msg.sender, address(this), betPriceTotal + betFeeTotal);
     }
 
-/// @notice Closes the lottery and calculates the prize, if any
+    /// @notice Closes the lottery and calculates the prize, if any
     /// @dev Anyone can call this function at any time after the closing time
     function closeLottery() external {
         require(block.timestamp >= betsClosingTime, "Too soon to close");
@@ -121,26 +127,27 @@ contract Lottery is Ownable {
     /// @notice Returns a random number calculated from the previous block randao
     /// @dev This only works after The Merge
     function getRandomNumber() public view returns (uint256 randomNumber) {
-        // TODO
+        return block.prevrandao;
     }
 
     /// @notice Withdraws `amount` from that accounts's prize pool
     function prizeWithdraw(uint256 amount) external {
         require(amount <= prize[msg.sender], "Not enough prize");
         prize[msg.sender] -= amount;
-        // TODO
+        paymentToken.transfer(msg.sender, amount);
     }
 
     /// @notice Withdraws `amount` from the owner's pool
-    function ownerWithdraw(uint256 amount) external {
+    function ownerWithdraw(uint256 amount) external onlyOwner {
         require(amount <= ownerPool, "Not enough fees collected");
         ownerPool -= amount;
-        // TODO
+        paymentToken.transfer(this.owner(), amount);
     }
 
     /// @notice Burns `amount` tokens and give the equivalent ETH back to user
     function returnTokens(uint256 amount) external {
+        require(amount > 0, "Positive amount required");
         paymentToken.burnFrom(msg.sender, amount);
-        // TODO
+        payable(msg.sender).transfer(amount / purchaseRatio);
     }
 }
