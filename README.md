@@ -19,3 +19,10 @@ npm install
 npx hardhat compile
 npx hardhat run ./scripts/lottery.ts
 ```
+
+Frontend
+```bash
+cd frontend
+yarn install
+yarn run
+```
