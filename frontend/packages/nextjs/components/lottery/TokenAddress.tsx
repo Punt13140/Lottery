@@ -5,7 +5,7 @@ import { useContractRead } from "wagmi";
 
 const lottery_address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
-export const TokenAddress = (params: { address: `0x${string}` }) => {
+export const TokenAddress = () => {
   const { data, isError, isLoading } = useContractRead({
     address: lottery_address,
     abi: lotteryJson.abi,
@@ -18,7 +18,7 @@ export const TokenAddress = (params: { address: `0x${string}` }) => {
 
   return (
     <>
-      <TokenBalance address={params.address} token_address={data as `0x${string}`}></TokenBalance>
+      <TokenBalance token_address={data as `0x${string}`}></TokenBalance>
       <Approve token_address={data as `0x${string}`}></Approve>
     </>
   );

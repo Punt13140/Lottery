@@ -1,5 +1,6 @@
 import * as lotteryJson from "../assets/Lottery.json";
 import { Bet } from "./Bet";
+import { BetMany } from "./BetMany";
 import { Abi } from "viem";
 import { useContractReads } from "wagmi";
 
@@ -28,11 +29,10 @@ export const GetPriceAndFee = () => {
 
   if (isError) return <p>Error</p>;
 
-  console.log(data);
-
   return (
     <>
       <Bet betPrice={data![0].result as bigint} betFee={data![1].result as bigint}></Bet>
+      <BetMany betPrice={data![0].result as bigint} betFee={data![1].result as bigint}></BetMany>
     </>
   );
 };
