@@ -1,6 +1,5 @@
-import { useState } from "react";
 import * as lotteryJson from "../assets/Lottery.json";
-import { HandleState } from "./HandleState";
+import { Bet } from "./Bet";
 import { Abi } from "viem";
 import { useContractReads } from "wagmi";
 
@@ -11,16 +10,16 @@ const lotteryContract = {
   abi: lotteryJson.abi as Abi,
 };
 
-export const LotteryState = () => {
+export const GetPriceAndFee = () => {
   const { data, isError, isLoading } = useContractReads({
     contracts: [
       {
         ...lotteryContract,
-        functionName: "betsOpen",
+        functionName: "betPrice",
       },
       {
         ...lotteryContract,
-        functionName: "betsClosingTime",
+        functionName: "betFee",
       },
     ],
   });
@@ -29,9 +28,11 @@ export const LotteryState = () => {
 
   if (isError) return <p>Error</p>;
 
+  console.log(data);
+
   return (
     <>
-      <HandleState betsOpen={data![0].result as boolean} betsClosingTime={data![1].result as number}></HandleState>
+      <Bet betPrice={data![0].result as bigint} betFee={data![1].result as bigint}></Bet>
     </>
   );
 };

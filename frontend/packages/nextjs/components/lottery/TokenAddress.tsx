@@ -3,7 +3,7 @@ import { Approve } from "./Approve";
 import { TokenBalance } from "./TokenBalance";
 import { useContractRead } from "wagmi";
 
-const lottery_address = "0x6d018d25c62aDC1beD9854ff80420d40A008d87A";
+const lottery_address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
 export const TokenAddress = (params: { address: `0x${string}` }) => {
   const { data, isError, isLoading } = useContractRead({
