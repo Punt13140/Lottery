@@ -1,13 +1,15 @@
 import * as tokenJson from "../assets/LotteryToken.json";
 import { formatUnits } from "viem";
-import { useContractRead } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 
-export const TokenBalance = (params: { address: `0x${string}`; token_address: `0x${string}` }) => {
+export const TokenBalance = (params: { token_address: `0x${string}` }) => {
+  const { address } = useAccount();
+
   const { data, isError, isLoading } = useContractRead({
     address: params.token_address,
     abi: tokenJson.abi,
     functionName: "balanceOf",
-    args: [params.address],
+    args: [address],
     watch: true,
   });
 
