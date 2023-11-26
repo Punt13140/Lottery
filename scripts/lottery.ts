@@ -186,8 +186,10 @@ async function checkState() {
 }
 
 async function openBets(duration: string) {
+  console.log(duration);
   const currentBlock = await ethers.provider.getBlock("latest");
   const timestamp = currentBlock?.timestamp ?? 0;
+  console.log(`Opening bets at ${timestamp + Number(duration)}\n`);
   const tx = await contract.openBets(timestamp + Number(duration));
   const receipt = await tx.wait();
   console.log(`Bets opened (${receipt?.hash})`);
@@ -232,10 +234,9 @@ async function bet(index: string, amount: string) {
   let tx;
   if (parseInt(amount) > 1) {
     tx = await contract.connect(accounts[Number(index)]).betMany(amount);
-  }
-  else {
+  } else {
     tx = await contract.connect(accounts[Number(index)]).bet();
-  } 
+  }
   const receipt = await tx.wait();
   console.log(`Bets placed (${receipt?.hash})\n`);
   console.log(`Gas used: (${receipt?.gasUsed})\n`);
