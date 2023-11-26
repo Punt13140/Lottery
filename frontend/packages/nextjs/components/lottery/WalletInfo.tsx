@@ -1,5 +1,6 @@
 import { LotteryState } from "./LotteryState";
 import { PurchaseToken } from "./PurchaseToken";
+import { ReturnTokens } from "./ReturnTokens";
 import { TokenAddress } from "./TokenAddress";
 import { useAccount, useNetwork } from "wagmi";
 import { useAccountBalance } from "~~/hooks/scaffold-eth";
@@ -20,6 +21,7 @@ export const WalletInfo = () => {
           </div>
         </div>
         <PurchaseToken></PurchaseToken>
+        <ReturnTokens></ReturnTokens>
         <TokenAddress address={address as `0x${string}`}></TokenAddress>
         <LotteryState></LotteryState>
       </div>
