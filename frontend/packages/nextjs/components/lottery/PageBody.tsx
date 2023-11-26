@@ -1,7 +1,9 @@
+import { WalletInfo } from "./WalletInfo";
+
 export const PageBody = () => {
-    return (
-      <>
-        <h1>Hello</h1>
-      </>
-    );
+  return (
+    <>
+      <WalletInfo></WalletInfo>
+    </>
+  );
 };
