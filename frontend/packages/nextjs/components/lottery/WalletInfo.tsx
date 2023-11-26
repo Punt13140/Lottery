@@ -1,3 +1,4 @@
+import { LotteryState } from "./LotteryState";
 import { PurchaseToken } from "./PurchaseToken";
 import { TokenAddress } from "./TokenAddress";
 import { useAccount, useNetwork } from "wagmi";
@@ -20,6 +21,7 @@ export const WalletInfo = () => {
         </div>
         <PurchaseToken></PurchaseToken>
         <TokenAddress address={address as `0x${string}`}></TokenAddress>
+        <LotteryState></LotteryState>
       </div>
     );
   if (isConnecting)
