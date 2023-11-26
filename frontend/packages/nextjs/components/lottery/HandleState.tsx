@@ -14,6 +14,11 @@ export const HandleState = (params: { betsOpen: boolean; betsClosingTime: number
           <div className="card-body">
             <h2 className="card-title">Lottery State</h2>
             <p>The lottery is {params.betsOpen ? "open" : "closed"}</p>
+
+            {!params.betsOpen && closingTimeDate.getTime() < Date.now() && (
+              <p>The lottery is over!!! Winners can withdraw !!</p>
+            )}
+
             {params.betsOpen && (
               <p>
                 Lottery should close at {closingTimeDate.toLocaleDateString()} : {closingTimeDate.toLocaleTimeString()}
