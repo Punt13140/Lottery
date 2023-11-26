@@ -3,11 +3,13 @@ import * as lotteryJson from "../assets/Lottery.json";
 import { parseEther } from "viem";
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 
+const lottery_address = "0x6d018d25c62aDC1beD9854ff80420d40A008d87A";
+
 export const PurchaseToken = () => {
   const [amount, setAmount] = useState("");
 
   const { config, error } = usePrepareContractWrite({
-    address: "0x6d018d25c62aDC1beD9854ff80420d40A008d87A",
+    address: lottery_address,
     abi: lotteryJson.abi,
     functionName: "purchaseTokens",
     value: parseEther(amount),

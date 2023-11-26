@@ -1,4 +1,5 @@
 import { PurchaseToken } from "./PurchaseToken";
+import { TokenAddress } from "./TokenAddress";
 import { useAccount, useNetwork } from "wagmi";
 import { useAccountBalance } from "~~/hooks/scaffold-eth";
 
@@ -18,6 +19,7 @@ export const WalletInfo = () => {
           </div>
         </div>
         <PurchaseToken></PurchaseToken>
+        <TokenAddress address={address as `0x${string}`}></TokenAddress>
       </div>
     );
   if (isConnecting)
