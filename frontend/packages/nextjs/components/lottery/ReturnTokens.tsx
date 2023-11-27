@@ -17,6 +17,10 @@ export const ReturnTokens = () => {
   
   const { data, write, isLoading, isSuccess } = useContractWrite(config);
 
+  if(isError){
+    console.log(error?.message);
+  }
+
   return (
     <div className="card lg:card-side bg-base-300 shadow-xl mb-4">
       <div className="card-body">
@@ -42,7 +46,6 @@ export const ReturnTokens = () => {
           <button className="btn btn-active btn-neutral" disabled={!write || isLoading}>
             {isLoading ? "Returning..." : "Return"}
           </button>
-          {isError && <p>Preflight check: {error?.message}</p>}
           {isSuccess && (
             <div>
               <p>Submitted transaction:</p>
