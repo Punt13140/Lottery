@@ -22,6 +22,7 @@ export const OpenBets = (params: { lastBlockTimestamp: number }) => {
 
   return (
     <div>
+      <h3 className="mt-10">Open bets</h3>
       <label className="label">
         <span className="label-text">Duration (in seconds) ?</span>
       </label>
