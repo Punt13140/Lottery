@@ -15,11 +15,7 @@ export const ReturnTokens = () => {
       args: [parseUnits(amount, 18)]
     });
   
-    const { data, write } = useContractWrite(config)
-
-    const { isLoading, isSuccess } = useWaitForTransaction({
-      hash: data?.hash,
-    });
+  const { data, write, isLoading, isSuccess } = useContractWrite(config);
 
   return (
     <div className="card lg:card-side bg-base-300 shadow-xl mb-4">
