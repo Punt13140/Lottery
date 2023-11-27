@@ -31,7 +31,7 @@ export const LotteryState = () => {
 
   return (
     <>
-      <HandleState betsOpen={data![0].result as boolean} betsClosingTime={data![1].result as number}></HandleState>
+      <HandleState betsOpen={data![0].result as boolean} betsClosingTime={data![1].result as bigint}></HandleState>
     </>
   );
 };
