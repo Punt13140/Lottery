@@ -3,7 +3,7 @@ import { CheckCanOpenBets } from "./CheckCanOpenBets";
 import { CheckPrize } from "./CheckPrize";
 import { CloseBets } from "./CloseBets";
 import { GetPriceAndFee } from "./GetPriceAndFee";
-import { formatUnits } from "viem";
+import { OwnerWithdraw } from "./OwnerWithdraw";
 
 const lottery_address = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
@@ -31,7 +31,10 @@ export const HandleState = (params: { betsOpen: boolean; betsClosingTime: bigint
         {!params.betsOpen && params.betsClosingTime === 0n && <CheckCanOpenBets></CheckCanOpenBets>}
         {/* Bets not open and closing date passed => Lottery over, show if you won */}
         {!params.betsOpen && params.betsClosingTime !== 0n && closingTimeDate.getTime() < Date.now() && (
-          <CheckPrize></CheckPrize>
+          <div>
+            <CheckPrize></CheckPrize>
+            <OwnerWithdraw></OwnerWithdraw>
+          </div>
         )}
         {/* Bets open and closing date not passed => You can vote, show price and fee and bet/betMany */}
         {params.betsOpen && closingTimeDate.getTime() > Date.now() && <GetPriceAndFee></GetPriceAndFee>}

@@ -38,11 +38,11 @@ export const BetMany = (params: { betPrice: bigint; betFee: bigint }) => {
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
             value={times}
-            onChange={e => setTimes(parseInt(e.target.value.replace(/\D/, "")))}
+            onChange={e => setTimes(parseInt(e.target.value.replace(/\D/, "")) || 0)}
           />
 
-          <p>Price: {formatUnits(params.betPrice * BigInt(times), 18)}</p>
-          <p>Fee: {formatUnits(params.betFee * BigInt(times), 18)}</p>
+          <p>Price: {formatUnits(params.betPrice * BigInt(times || 0), 18)}</p>
+          <p>Fee: {formatUnits(params.betFee * BigInt(times || 0), 18)}</p>
 
           <button className="btn btn-active btn-neutral" disabled={!write || isLoading} onClick={() => write?.()}>
             {!write ? "Approve first..." : isLoading ? "Loading..." : "Bet"}

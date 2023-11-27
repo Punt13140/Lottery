@@ -46,6 +46,7 @@ export const ReturnTokens = () => {
           <button className="btn btn-active btn-neutral" disabled={!write || isLoading}>
             {isLoading ? "Returning..." : "Return"}
           </button>
+          {isError && <p>Not enough tokens or need to increase allowance</p>}
           {isSuccess && (
             <div>
               <p>Submitted transaction:</p>
